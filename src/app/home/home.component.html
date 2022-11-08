@@ -1,0 +1,45 @@
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light" style="margin-bottom: 10px">Freelance Contact Directory</h1>
+            <p class="lead text-muted" style="margin-bottom: 30px">Help companies record data for freelance employees in order to facilitate the personnel administration process.</p>
+            <div class="input-group flex-nowrap" style="margin-bottom: 15px">
+                <span class="input-group-text" id="addon-wrapping">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                      </svg>
+                </span>
+                <input type="text" class="form-control" placeholder="Search freelance by name">
+            </div>
+            <button type="button" class="btn btn-primary btn-lg bd-highlight">Add Freelance</button>
+        </div>
+    </div>
+</section>
+
+<div class="album py-5 bg-light">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+            <div *ngFor="let person of freelancers" class="col">
+                <div class="card shadow-md text-center">
+                    <img class="bd-placeholder-img card-img-top" width="100%" height="225" style="padding: 10px 10px 0px 10px;" src="assets/images/default_pp.jpg" preserveAspectRatio="xMidYMid slice" focusable="false">
+                    <div class="card-body">
+                        <h3 class="card-title">{{person.name}}</h3>
+                        <h6 class="card-subtitle mb-2 text-muted">{{person.skill}}</h6>
+                        <div class="card-text" style="margin-bottom: 10px; margin-top: 15px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
+                              </svg>
+                            {{person.phone}}
+                        </div>
+                        <p class="card-text text-muted text-truncate" style="padding: 0px 15px; margin-bottom: 15px;">{{person.notes}}</p>
+                        <div class="btn-group d-flex" role="group">
+                            <button type="button" class="btn btn-info bd-highlight w-100">View</button>
+                            <button type="button" class="btn btn-warning bd-highlight w-100">Edit</button>
+                            <button type="button" class="btn btn-danger bd-highlight w-100">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
