@@ -9,9 +9,9 @@
                         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                       </svg>
                 </span>
-                <input type="text" class="form-control" placeholder="Search freelance by name">
+                <input type="text" [(ngModel)]="searchText" name="searchText" (ngModelChange)="onChange($event)" class="form-control" placeholder="Search freelance by name">
             </div>
-            <button type="button" class="btn btn-primary btn-lg bd-highlight">Add Freelance</button>
+            <button type="button" class="btn btn-primary btn-lg bd-highlight" routerLink="/add">Add Freelance</button>
         </div>
     </div>
 </section>
@@ -33,9 +33,9 @@
                         </div>
                         <p class="card-text text-muted text-truncate" style="padding: 0px 15px; margin-bottom: 15px;">{{person.notes}}</p>
                         <div class="btn-group d-flex" role="group">
-                            <button type="button" class="btn btn-info bd-highlight w-100">View</button>
-                            <button type="button" class="btn btn-warning bd-highlight w-100">Edit</button>
-                            <button type="button" class="btn btn-danger bd-highlight w-100">Delete</button>
+                            <button type="button" class="btn btn-info bd-highlight w-100" routerLink="/profile/{{person.id}}">View</button>
+                            <button type="button" class="btn btn-warning bd-highlight w-100" routerLink="/edit/{{person.id}}">Edit</button>
+                            <button type="button" class="btn btn-danger bd-highlight w-100" (click)="delete(content, person)">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -43,3 +43,19 @@
         </div>
     </div>
 </div>
+
+<ng-template #content let-c="close" let-d="dismiss">    
+    <div class="modal-header">    
+        <h4 class="modal-title" id="modal-basic-title">Confirmation</h4>    
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">    
+            <span aria-hidden="true">×</span>    
+        </button>    
+    </div>    
+    <div class="modal-body">    
+        <p>Are you sure to delete {{name}}?</p>    
+    </div>    
+    <div class="modal-footer">    
+        <button type="button" class="btn btn-outline-dark" (click)="d('Cross click')">Cancel</button>    
+        <button type="button" class="btn btn-outline-dark" (click)="c('yes')">Yes</button>    
+    </div>    
+</ng-template>

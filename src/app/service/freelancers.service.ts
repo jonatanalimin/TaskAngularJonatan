@@ -18,4 +18,28 @@ export class FreelancersService {
   getFreelancers(): Observable<Freelancer[]>{
     return this.http.get<Freelancer[]>(this.baseUrl)
   }
+
+  getFreelancer(id: number): Observable<Freelancer>{
+    return this.http.get<Freelancer>(`${this.baseUrl}/${id}`)
+  }
+
+  getFreelancerByName(name: string): Observable<Freelancer[]>{
+    let httpOptionsCustom = {
+      headers: new HttpHeaders({'Content-type': 'application/json'}),
+      params: {'name_like': name}
+    };
+    return this.http.get<Freelancer[]>(this.baseUrl, httpOptionsCustom);
+  }
+
+  deleteFreelancer(id: number): Observable<Freelancer>{
+    return this.http.delete<Freelancer>(`${this.baseUrl}/${id}`)
+  }
+
+  postFreelancer(freelancer: Freelancer): Observable<Freelancer>{
+    return this.http.post<Freelancer>(this.baseUrl, freelancer, this.httpOptions);
+  }
+
+  putFreelancer(freelancer: Freelancer): Observable<Freelancer>{
+    return this.http.put<Freelancer>(`${this.baseUrl}/${freelancer.id}`, freelancer, this.httpOptions);
+  }
 }

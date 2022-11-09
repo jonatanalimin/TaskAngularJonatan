@@ -1,46 +1,60 @@
 {
-    "freelancers": [
-      {
-        "id": 1,
-        "name": "Murphy",
-        "phone": "25565115",
-        "skill": "Angular Developer",
-        "notes": "he has quality to build angular application xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-      },
-      {
-        "id": 2,
-        "name": "Eddie",
-        "phone": "25565115",
-        "skill": "Devops Engineer",
-        "notes": "he has quality to maintain production environment"
-      },
-      {
-        "id": 3,
-        "name": "Ruud van",
-        "phone": "25565115",
-        "skill": "UX Designer",
-        "notes": "he has quality to create excelent UX"
-      },
-      {
-        "id": 4,
-        "name": "Eusebio",
-        "phone": "25565115",
-        "skill": "Angular Developer",
-        "notes": "he has quality to build angular application"
-      },
-      {
-        "id": 5,
-        "name": "Venom",
-        "phone": "25565115",
-        "skill": "Java Developer",
-        "notes": "he has quality to build java application"
-      },
-      {
-        "id": 6,
-        "name": "Richard",
-        "phone": "25565115",
-        "skill": "React Developer",
-        "notes": "he has quality to build react application"
-      }
-    ]
-  }
+  "freelancers": [
+    {
+      "id": 1,
+      "name": "Murphy",
+      "phone": "25565115",
+      "skill": "Java Developer",
+      "notes": "He has quality to build angular application"
+    },
+    {
+      "id": 4,
+      "name": "Eusebio",
+      "phone": "25565115",
+      "skill": "UX Developer",
+      "notes": "He has quality to build angular application"
+    },
+    {
+      "id": 5,
+      "name": "Venom",
+      "phone": "25565115",
+      "skill": "Java Developer",
+      "notes": "He has quality to build java application"
+    },
+    {
+      "id": 6,
+      "name": "Richard",
+      "phone": "25565115",
+      "skill": "UX Developer",
+      "notes": "He has quality to build react application"
+    },
+    {
+      "id": 8,
+      "name": "Johny",
+      "phone": "12312312222",
+      "skill": "Software Developer",
+      "notes": "He is good!"
+    },
+    {
+      "id": 10,
+      "name": "John Allan",
+      "phone": "12312312222",
+      "skill": "Java Developer",
+      "notes": "He is really good in backend SpringBoot!"
+    },
+    {
+      "name": "Lia Bonita",
+      "phone": "024543154841",
+      "skill": "UX Developer",
+      "notes": "She is excellent in electron framework",
+      "id": 11
+    },
+    {
+      "name": "dev-robotpepper",
+      "phone": "12312312222",
+      "skill": "Java Developer",
+      "notes": "eeeeee",
+      "id": 12
+    }
+  ]
+}
