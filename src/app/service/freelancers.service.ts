@@ -7,7 +7,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
   providedIn: 'root'
 })
 export class FreelancersService {
-  private baseUrl: string = 'http://localhost:3000/freelancers';
+  private baseUrl: string = 'https://fake-json-server-jo17.herokuapp.com/freelancers';
 
   constructor(private http: HttpClient) { }
 
