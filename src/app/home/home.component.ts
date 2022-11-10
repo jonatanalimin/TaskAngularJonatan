@@ -28,8 +28,15 @@ export class HomeComponent implements OnInit {
   }
 
   getAll(): void{
+    this.spinnerService.requestStarted();
     this.freelancersService.getFreelancers()
-      .subscribe(resp => this.freelancers = resp);
+      .subscribe({
+        next: (resp) => {
+          this.freelancers = resp;
+          this.spinnerService.requestEnded();
+        },
+        error: () => this.spinnerService.resetSpinner()
+      });
   }
 
   delete(content:any, person:Freelancer): void{
