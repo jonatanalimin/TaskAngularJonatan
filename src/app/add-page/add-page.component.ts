@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Freelancer, FreelancerModel } from '../model/freelancer';
 import { FreelancersService } from '../service/freelancers.service';
 import { Router } from '@angular/router';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SpinnerService } from '../service/spinner.service';
 
 @Component({
   selector: 'app-add-page',
@@ -9,13 +11,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-page.component.css']
 })
 export class AddPageComponent implements OnInit {
-
+  title:string = "";
+  body:string = "";
+  freelancer?: Freelancer;
   modelFreelancer = new FreelancerModel('', '', '', '');
+  @ViewChild('content') mymodal: ElementRef | undefined;
 
 
   constructor(
     private freelancerService: FreelancersService,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal,
+    private spinnerService: SpinnerService
   ) { }
 
   ngOnInit(): void {
@@ -38,20 +45,35 @@ export class AddPageComponent implements OnInit {
     phone: string = this.modelFreelancer.phone,
     skill: string = this.modelFreelancer.skill,
     notes: string = this.modelFreelancer.notes): void{
+      this.spinnerService.requestStarted();
       name = name.trim();
       phone = phone.trim();
       skill = skill.trim();
       notes = notes.trim();
-      if(!name || !phone || !skill || !notes){return}
+      if(!name || !phone || !skill || !notes){
+        this.spinnerService.resetSpinner();
+        this.title = "Failed Add Data";
+        this.body = "All field musn't empty!";
+        this.modalService.open(this.mymodal, { ariaLabelledBy: 'modal-basic-title' });
+        return;
+      }
       this.freelancerService.postFreelancer({name, phone, skill, notes} as Freelancer)
-        .subscribe(resp => {
-          alert(`Success add: \n
-            Name: ${resp.name}\n
-            Phone: ${resp.phone}\n
-            Skill: ${resp.skill}\n
-            Notes: ${resp.notes}`);
-          this.router.navigate(['home']);
-      })
+        .subscribe({
+          next: (resp) => {
+                  this.spinnerService.requestEnded();
+                  this.title = "Succes Add Data";
+                  this.body = ""
+                  this.freelancer = resp;
+                  this.modalService.open(this.mymodal, { ariaLabelledBy: 'modal-basic-title' });
+                  this.router.navigate(['home']);
+                },
+          error: (err) => {
+                  this.spinnerService.resetSpinner();
+                  this.title = "Failed Add Data";
+                  this.body = err.message;
+                  this.modalService.open(this.mymodal, { ariaLabelledBy: 'modal-basic-title' });
+          }
+        })
   }
 
 }

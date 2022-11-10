@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Freelancer, FreelancerModel } from '../model/freelancer';
 import { FreelancersService } from '../service/freelancers.service';
+import { SpinnerService } from '../service/spinner.service';
 
 @Component({
   selector: 'app-edit-page',
@@ -9,18 +11,35 @@ import { FreelancersService } from '../service/freelancers.service';
   styleUrls: ['./edit-page.component.css']
 })
 export class EditPageComponent implements OnInit {
+  title:string = "";
+  body:string = "";
+  freelancer?: Freelancer;
+  empty: boolean = true;
   modelFreelancer = new FreelancerModel('', '', '', '');
+  @ViewChild('content') mymodal: ElementRef | undefined;
 
 
   constructor(
     private freelancerService: FreelancersService ,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private modalService: NgbModal,
+    private spinnerService: SpinnerService
   ) { }
 
   ngOnInit(): void {
+    this.spinnerService.requestStarted();
     this.freelancerService.getFreelancer(Number(this.route.snapshot.paramMap.get('id')))
-      .subscribe(resp => this.modelFreelancer = resp)
+      .subscribe({
+        next:  (resp) => {
+          this.empty=false;
+          this.modelFreelancer = resp;
+          this.spinnerService.resetSpinner();
+        },
+        error: (err) => {
+          this.spinnerService.resetSpinner();
+        }
+      })
   }
 
   validateNo(e: any):boolean{
@@ -45,16 +64,31 @@ export class EditPageComponent implements OnInit {
       phone = phone.trim();
       skill = skill.trim();
       notes = notes.trim();
-      if(!name || !phone || !skill || !notes){return}
+      this.spinnerService.requestStarted();
+      if(!name || !phone || !skill || !notes){
+        this.spinnerService.resetSpinner();
+        this.title = "Failed Edit Data";
+        this.body = "All field musn't empty!";
+        this.modalService.open(this.mymodal, { ariaLabelledBy: 'modal-basic-title' });
+        return;
+      }
       this.freelancerService.putFreelancer({id, name, phone, skill, notes} as Freelancer)
-        .subscribe(resp => {
-          alert(`Success edit: \n
-            Name: ${resp.name}\n
-            Phone: ${resp.phone}\n
-            Skill: ${resp.skill}\n
-            Notes: ${resp.notes}`);
-          this.router.navigate(['home']);
-      })
+        .subscribe({
+          next: (resp) => {
+                  this.spinnerService.requestEnded();
+                  this.title = "Succes Edit Data";
+                  this.body = ""
+                  this.freelancer = resp;
+                  this.modalService.open(this.mymodal, { ariaLabelledBy: 'modal-basic-title' });
+                  this.router.navigate(['home']);
+                },
+          error: (err) => {
+                  this.spinnerService.resetSpinner();
+                  this.title = "Failed Edit Data";
+                  this.body = err.message;
+                  this.modalService.open(this.mymodal, { ariaLabelledBy: 'modal-basic-title' });
+          }
+        })
   }
 
 }

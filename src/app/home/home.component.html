@@ -1,8 +1,8 @@
-<section class="py-5 text-center container">
-    <div class="row py-lg-5">
+<section class="py-2 text-center container pd-20 mb-20 card-box">
+    <div class="row py-lg-2">
         <div class="col-lg-6 col-md-8 mx-auto">
             <h1 class="fw-light" style="margin-bottom: 10px">Freelance Contact Directory</h1>
-            <p class="lead text-muted" style="margin-bottom: 30px">Help companies record data for freelance employees in order to facilitate the personnel administration process.</p>
+            <p class="lead text-muted" style="margin-bottom: 30px">Help companies record data for freelance employees</p>
             <div class="input-group flex-nowrap" style="margin-bottom: 15px">
                 <span class="input-group-text" id="addon-wrapping">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -10,15 +10,15 @@
                       </svg>
                 </span>
                 <input type="text" [(ngModel)]="searchText" name="searchText" (ngModelChange)="onChange($event)" class="form-control" placeholder="Search freelance by name">
+                <button type="button" class="btn btn-primary btn-lg bd-highlight" routerLink="/add">Add Freelance</button>
             </div>
-            <button type="button" class="btn btn-primary btn-lg bd-highlight" routerLink="/add">Add Freelance</button>
         </div>
     </div>
 </section>
 
 <div class="album py-5 bg-light">
     <div class="container">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        <div *ngIf="freelancers.length > 0; else noFreelancer;" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
             <div *ngFor="let person of freelancers" class="col">
                 <div class="card shadow-md text-center">
                     <img class="bd-placeholder-img card-img-top" width="100%" height="225" style="padding: 10px 10px 0px 10px;" src="assets/images/default_pp.jpg" preserveAspectRatio="xMidYMid slice" focusable="false">
@@ -29,7 +29,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
                               </svg>
-                            {{person.phone}}
+                            {{person.phone | phone}}
                         </div>
                         <p class="card-text text-muted text-truncate" style="padding: 0px 15px; margin-bottom: 15px;">{{person.notes}}</p>
                         <div class="btn-group d-flex" role="group">
@@ -41,6 +41,9 @@
                 </div>
             </div>
         </div>
+        <ng-template #noFreelancer class="container">
+            <h1 class="text-muted text-center" style="height: 80%;">No freelancer data</h1>
+        </ng-template>
     </div>
 </div>
 
@@ -59,3 +62,18 @@
         <button type="button" class="btn btn-outline-dark" (click)="c('yes')">Yes</button>    
     </div>    
 </ng-template>
+
+<ng-template #contentDel let-c="close" let-d="dismiss">    
+    <div class="modal-header">    
+        <h4 class="modal-title" id="modal-basic-title">{{title}}</h4>    
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">    
+            <span aria-hidden="true">×</span>    
+        </button>    
+    </div>    
+    <div class="modal-body">    
+        <p>{{body}}</p>  
+    </div>    
+    <div class="modal-footer"> 
+        <button type="button" class="btn btn-outline-dark" (click)="c('ok')">Ok</button>    
+    </div>    
+  </ng-template>

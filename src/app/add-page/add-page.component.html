@@ -1,14 +1,14 @@
-<section class="py-5 text-center container">
-    <div class="row py-lg-5">
-        <div class="col-lg-6 col-md-8 mx-auto">
+<section class="py-2 text-center container">
+    <div class="row py-lg-2">
+        <div class="col-lg-6 col-md-8 mx-auto" style="margin-bottom: 30px">
             <h1 class="fw-light" style="margin-bottom: 10px">Freelance Add Form</h1>
-            <p class="lead text-muted" style="margin-bottom: 30px">Add new freelancer contact directory!</p>
+            <p class="lead text-muted" style="margin-bottom: 10px">Add new freelancer contact directory!</p>
             <button type="button" class="btn btn-primary btn-sm bd-highlight" routerLink="/home">Back to home</button>
         </div>
     </div>
 </section>
 
-<div class="container">
+<div class="container" style="width: 60%;">
     <div class="pd-20 card-box mb-30">
         <form (ngSubmit)="onSubmit()" #freelancerForm="ngForm">
             <div class="form-group row mb-3">
@@ -63,8 +63,33 @@
                 <div [hidden]="notes.valid || notes.pristine" class="alert alert-light">
                     Expertise desc. is required
                 </div>
-              </div>
-            <button type="submit" class="btn btn-primary" [disabled]="!freelancerForm.form.valid">Add</button>
+            </div>
+            <div class="container text-center">
+              <button type="submit" class="btn btn-primary" [disabled]="!freelancerForm.form.valid">Add</button>
+            </div>
         </form>
     </div>
 </div>
+
+<ng-template #content let-c="close" let-d="dismiss">    
+  <div class="modal-header">    
+      <h4 class="modal-title" id="modal-basic-title">{{title}}</h4>    
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">    
+          <span aria-hidden="true">×</span>    
+      </button>    
+  </div>    
+  <div class="modal-body">    
+      <p *ngIf="body != ''; else success;">{{body}}</p> 
+      <ng-template #success>
+        <ul *ngIf="freelancer">
+          <li>Name: {{freelancer.name}}</li>
+          <li>Phone: {{freelancer.phone}}</li>
+          <li>Skill: {{freelancer.skill}}</li>
+          <li>Expertise Desc.: {{freelancer.notes}}</li>
+        </ul>
+      </ng-template>  
+  </div>    
+  <div class="modal-footer"> 
+      <button type="button" class="btn btn-outline-dark" (click)="c('ok')">Ok</button>    
+  </div>    
+</ng-template>

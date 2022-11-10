@@ -3,58 +3,79 @@
     {
       "id": 1,
       "name": "Murphy",
-      "phone": "25565115",
+      "phone": "081111221122",
       "skill": "Java Developer",
       "notes": "He has quality to build angular application"
     },
     {
       "id": 4,
       "name": "Eusebio",
-      "phone": "25565115",
+      "phone": "08177544566",
       "skill": "UX Developer",
       "notes": "He has quality to build angular application"
     },
     {
       "id": 5,
       "name": "Venom",
-      "phone": "25565115",
+      "phone": "859235664185",
       "skill": "Java Developer",
       "notes": "He has quality to build java application"
     },
     {
       "id": 6,
       "name": "Richard",
-      "phone": "25565115",
+      "phone": "87456123555",
       "skill": "UX Developer",
       "notes": "He has quality to build react application"
     },
     {
       "id": 8,
       "name": "Johny",
-      "phone": "12312312222",
+      "phone": "855521566",
       "skill": "Software Developer",
       "notes": "He is good!"
     },
     {
       "id": 10,
       "name": "John Allan",
-      "phone": "12312312222",
+      "phone": "89516577555",
       "skill": "Java Developer",
       "notes": "He is really good in backend SpringBoot!"
     },
     {
+      "id": 11,
       "name": "Lia Bonita",
-      "phone": "024543154841",
+      "phone": "895135456755",
       "skill": "UX Developer",
-      "notes": "She is excellent in electron framework",
-      "id": 11
+      "notes": "She is excellent in electron framework"
     },
     {
-      "name": "dev-robotpepper",
-      "phone": "12312312222",
+      "id": 12,
+      "name": "Mark Thomas",
+      "phone": "863230156",
       "skill": "Java Developer",
-      "notes": "eeeeee",
-      "id": 12
+      "notes": "Good at Java"
+    },
+    {
+      "id": 13,
+      "name": "Iip Permana",
+      "phone": "081395595232",
+      "skill": "Java Developer",
+      "notes": "He has quality to build SpringBoot application"
+    },
+    {
+      "name": "Allan Maakh",
+      "phone": "085195486220",
+      "skill": "UX Developer",
+      "notes": "He has quality to build angular application",
+      "id": 14
+    },
+    {
+      "id": 16,
+      "name": "Albert Kim",
+      "phone": "877774455",
+      "skill": "Java Developer",
+      "notes": "He is good!"
     }
   ]
 }

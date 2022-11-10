@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, ViewChild,  ElementRef} from '@angular/core';
 import { Freelancer } from '../model/freelancer';
 import { FreelancersService } from '../service/freelancers.service';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SpinnerService } from '../service/spinner.service';
 
 @Component({
   selector: 'app-home',
@@ -9,14 +10,18 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  title:string = "";
+  body:string = "";
   freelancers: Freelancer[] = [];
   searchText: string = "";
   closeResult: string = "";
   name: string="";
+  @ViewChild('contentDel') mymodal: ElementRef | undefined;
 
   constructor(
     private freelancersService: FreelancersService,
-    private modalService: NgbModal) { }
+    private modalService: NgbModal,
+    private spinnerService: SpinnerService) { }
 
   ngOnInit(): void {
     this.getAll();
@@ -33,12 +38,29 @@ export class HomeComponent implements OnInit {
     modalDelete.result.then((result) => {  
       this.closeResult = `Closed with: ${result}`;  
       if (result === 'yes') {
-        console.log("Yes");
+        this.spinnerService.requestStarted();
         this.freelancersService.deleteFreelancer(person.id)
-          .subscribe(() => {
-            window.location.reload();
-            alert(`Success delete data ${this.name}`);
-          }) 
+          .subscribe({
+            next: () => {
+              this.title = "Succes Delete";
+              this.body = `Success delete data ${this.name}`;
+              this.modalService.open(this.mymodal, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+                () => {
+                  window.location.reload();
+                  this.spinnerService.requestEnded();
+                }, () => {
+                  window.location.reload();
+                  this.spinnerService.requestEnded();
+                }
+              )
+            },
+            error: (err) => {
+              this.spinnerService.resetSpinner();
+              this.title = "Failed Delete";
+              this.body = err.message;
+              this.modalService.open(this.mymodal, { ariaLabelledBy: 'modal-basic-title' })
+            }
+        }) 
       }  
     }, (reason) => {  
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;  

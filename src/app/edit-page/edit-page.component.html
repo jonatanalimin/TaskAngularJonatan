@@ -1,16 +1,16 @@
-<section class="py-5 text-center container">
-    <div class="row py-lg-5">
-        <div class="col-lg-6 col-md-8 mx-auto">
-            <h1 class="fw-light" style="margin-bottom: 10px">Freelance Add Form</h1>
-            <p class="lead text-muted" style="margin-bottom: 30px">Add new freelancer contact directory!</p>
+<section class="py-2 text-center container">
+    <div class="row py-lg-2">
+        <div class="col-lg-6 col-md-8 mx-auto" style="margin-bottom: 30px">
+            <h1 class="fw-light" style="margin-bottom: 10px">Freelance Edit Form</h1>
+            <p class="lead text-muted" style="margin-bottom: 30px">Edit freelancer contact directory!</p>
             <button type="button" class="btn btn-primary btn-sm bd-highlight" routerLink="/home">Back to home</button>
         </div>
     </div>
-</section>
+  </section>
 
-<div class="container">
+<div class="container" style="width: 60%;">
     <div class="pd-20 card-box mb-30">
-        <form (ngSubmit)="onSubmit()" #freelancerForm="ngForm">
+        <form *ngIf="!empty; else notFound" (ngSubmit)="onSubmit()" #freelancerForm="ngForm">
             <div class="form-group row mb-3">
                 <label for="name" class="col-sm-2 col-form-label">Name</label>
                 <div class="col-sm-10">
@@ -64,7 +64,35 @@
                     Expertise desc. is required
                 </div>
               </div>
-            <button type="submit" class="btn btn-primary" [disabled]="!freelancerForm.form.valid">Save</button>
+              <div class="container text-center">
+                <button type="submit" class="btn btn-primary" [disabled]="!freelancerForm.form.valid">Save</button>
+              </div>
         </form>
+        <ng-template #notFound class="container">
+          <h1 class="text-muted text-center" style="height: 80%;">Data not found</h1>
+        </ng-template>
     </div>
 </div>
+
+<ng-template #content let-c="close" let-d="dismiss">    
+  <div class="modal-header">    
+      <h4 class="modal-title" id="modal-basic-title">{{title}}</h4>    
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">    
+          <span aria-hidden="true">×</span>    
+      </button>    
+  </div>    
+  <div class="modal-body">    
+      <p *ngIf="body != ''; else success;">{{body}}</p> 
+      <ng-template #success>
+        <ul *ngIf="freelancer">
+          <li>Name: {{freelancer.name}}</li>
+          <li>Phone: {{freelancer.phone}}</li>
+          <li>Skill: {{freelancer.skill}}</li>
+          <li>Expertise Desc.: {{freelancer.notes}}</li>
+        </ul>
+      </ng-template>  
+  </div>    
+  <div class="modal-footer"> 
+      <button type="button" class="btn btn-outline-dark" (click)="c('ok')">Ok</button>    
+  </div>    
+</ng-template>

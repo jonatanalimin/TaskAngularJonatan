@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Freelancer } from '../model/freelancer';
 import { FreelancersService } from '../service/freelancers.service';
+import { SpinnerService } from '../service/spinner.service';
 
 @Component({
   selector: 'app-profile',
@@ -13,7 +14,8 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private freelancerService: FreelancersService
+    private freelancerService: FreelancersService,
+    private spinnerService: SpinnerService
   ) { }
 
   ngOnInit(): void {
@@ -21,8 +23,15 @@ export class ProfileComponent implements OnInit {
   }
 
   getProfile(): void {
+    this.spinnerService.requestStarted();
     this.freelancerService.getFreelancer(Number(this.route.snapshot.paramMap.get('id')))
-      .subscribe(resp => this.person = resp)
+      .subscribe({
+        next: (resp) => {
+          this.person = resp;
+          this.spinnerService.requestEnded();
+        },
+        error: () => this.spinnerService.resetSpinner()
+      })
   }
 
 }
