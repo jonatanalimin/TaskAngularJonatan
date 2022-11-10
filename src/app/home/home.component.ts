@@ -53,11 +53,23 @@ export class HomeComponent implements OnInit {
               this.body = `Success delete data ${this.name}`;
               this.modalService.open(this.mymodal, { ariaLabelledBy: 'modal-basic-title' }).result.then(
                 () => {
-                  window.location.reload();
-                  this.spinnerService.requestEnded();
+                  this.freelancersService.getFreelancers()
+                  .subscribe({
+                    next: (resp) => {
+                      this.freelancers = resp;
+                      this.spinnerService.requestEnded();
+                    },
+                    error: () => this.spinnerService.resetSpinner()
+                  });
                 }, () => {
-                  window.location.reload();
-                  this.spinnerService.requestEnded();
+                  this.freelancersService.getFreelancers()
+                  .subscribe({
+                    next: (resp) => {
+                      this.freelancers = resp;
+                      this.spinnerService.requestEnded();
+                    },
+                    error: () => this.spinnerService.resetSpinner()
+                  });
                 }
               )
             },
